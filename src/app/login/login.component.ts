@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
+import { AuthService } from '../auth.service';
 
 interface AuthResponse {
   id_token: string;
@@ -20,7 +21,7 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
 
   onSubmit() {
@@ -42,5 +43,10 @@ export class LoginComponent {
     }, error => {
       console.error(error);
     });
+  }
+
+  // Add the logout method here
+  logout() {
+    this.authService.logout();
   }
 }
