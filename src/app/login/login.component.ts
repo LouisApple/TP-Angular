@@ -1,54 +1,36 @@
-import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Component } from '@angular/core';
+import { Router } from "@angular/router";
+import { AuthService } from '../auth.service';
 import {FormsModule} from "@angular/forms";
-import {Router} from "@angular/router";
-import {AuthService} from '../auth.service';
-import {jwtDecode} from 'jwt-decode';
-
-interface AuthResponse {
-  id_token: string;
-}
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-login',
+  templateUrl: './login.component.html',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  errorMessage: string = '';
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
-  onSubmit() {
-    const body = {
-      username: this.username,
-      password: this.password
-    };
-
-    this.http.post<AuthResponse>('http://localhost:8080/auth', body).subscribe(response => {
-      console.log(response);
-      const token = response.id_token;
-      const decodedToken = jwtDecode<any>(token);
-      console.log(decodedToken);
-      // console.log(token);
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', decodedToken.auth);
-
-      if (token) {
-        this.router.navigate(['/home']);
-      }
-    }, error => {
-      console.error(error);
-    });
+  async onSubmit() {
+    try {
+      await this.authService.login(this.username, this.password);
+      await this.router.navigate(['/home']);
+    } catch (error) {
+      this.errorMessage = 'Failed to login. Please check your username and password.';
+    }
   }
 
-  // Add the logout method here
   logout() {
     this.authService.logout();
   }
