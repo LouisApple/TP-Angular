@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
-import { AuthService } from '../auth.service';
+import {AuthService} from '../auth.service';
+import {jwtDecode} from 'jwt-decode';
 
 interface AuthResponse {
   id_token: string;
@@ -33,12 +34,14 @@ export class LoginComponent {
     this.http.post<AuthResponse>('http://localhost:8080/auth', body).subscribe(response => {
       console.log(response);
       const token = response.id_token;
-      console.log(token); // Log the token
-      localStorage.setItem('token', token); // Save the token in local storage
+      const decodedToken = jwtDecode<any>(token);
+      console.log(decodedToken);
+      // console.log(token);
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', decodedToken.auth);
 
-      // If the token exists, redirect to the home page
       if (token) {
-        this.router.navigate(['/home']); // Redirect to home page
+        this.router.navigate(['/home']);
       }
     }, error => {
       console.error(error);
