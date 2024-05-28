@@ -6,7 +6,7 @@
     <th>Last Name</th>
     <th>Age</th>
     <th>Actions</th>
-    <th><a *ngIf="authService.isLoggedIn()" routerLink="/person/create">Create Person</a></th>
+    <th><button *ngIf="authService.isLoggedIn()" routerLink="/person/create">Create Person</button></th>
 
   </tr>
   </thead>

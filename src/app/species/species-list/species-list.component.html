@@ -5,7 +5,7 @@
     <th>Common Name</th>
     <th>Latin Name</th>
     <th>Actions</th>
-    <th><a *ngIf="authService.isLoggedIn()" routerLink="/species/create">Create Species</a></th>
+    <th><button *ngIf="authService.isLoggedIn()" routerLink="/species/create">Create Species</button></th>
     <th><input [(ngModel)]="filter" (input)="applyFilter($event.target)" placeholder="Filter species">
     </th>
   </tr>
