@@ -6,7 +6,7 @@ export class Animals {
   name : string;
   color : string;
   sex: string;
-  species  : Species|null;
+  species  : null|Species;
   persons  : Person|null;
 
   constructor() {

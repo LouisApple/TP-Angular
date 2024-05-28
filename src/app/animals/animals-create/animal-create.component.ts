@@ -2,32 +2,49 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {Animals} from '../animals';
-import {FormsModule} from "@angular/forms";
-import {AnimalsService} from "../../animals-service.service";
+import {FormsModule} from '@angular/forms';
+import {AnimalsService} from '../../animals-service.service';
+import {Species} from '../../species/species';
+import {HttpClient} from '@angular/common/http';
+import {SpeciesService} from '../../species-service.service';
+import {NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-animal-create',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    NgForOf
   ],
   templateUrl: './animal-create.component.html',
-  styleUrl: './animal-create.component.scss'
+  styleUrls: ['./animal-create.component.scss']
 })
 export class AnimalCreateComponent implements OnInit {
   animals: Animals = new Animals();
+  species: Species[] = [];
 
   constructor(
     private router: Router,
-    private animalsService: AnimalsService
+    private animalsService: AnimalsService,
+    private speciesService: SpeciesService,
+    private http: HttpClient
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.speciesService.getSpecies()
+      .subscribe(countries => {
+        this.species = countries as Species[];
+        console.log(this.species)
+      })
   }
 
-  createAnimal(): void {
-    console.log(this.animals)
+
+  async createAnimal(): Promise<void> {
+    if (this.animals.species != null) {
+      let nbEspece = this.animals.species;
+      this.animals.species = this.species[nbEspece as unknown as number - 1];
+    }
     this.animalsService.createAnimals(this.animals).subscribe(() => this.router.navigate(['/animals']));
   }
 }

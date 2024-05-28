@@ -13,7 +13,11 @@
   </label>
   <label>
     Species:
-    <input [(ngModel)]="animals.species" name="latinName">
+    <select [(ngModel)]="animals.species" name="species">
+      <option *ngFor="let specie of species" [value]="specie.id">
+        {{ specie.commonName }}
+      </option>
+    </select>
   </label>
   <label>
     Persons:
