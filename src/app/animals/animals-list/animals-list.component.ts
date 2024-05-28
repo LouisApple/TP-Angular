@@ -30,4 +30,10 @@ export class AnimalListComponent implements OnInit {
   getAnimals(): void {
     this.animalsService.getAnimals().subscribe(animals => this.animals = animals);
   }
+
+  deleteAnimal(id: number | null) {
+    this.animalsService.deleteAnimals(id).subscribe(() => {
+      this.animals = this.animals.filter(animal => animal.id !== id);
+    });
+  }
 }

@@ -7,6 +7,7 @@
       <th>sex</th>
       <th>species(Common name, Latin name)</th>
       <th>persons</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,13 @@
       <td>{{animals.sex}}</td>
       <td>{{animals.species?.commonName + ', ' + animals.species?.latinName}}</td>
       <td>{{animals.persons}}</td>
+<!--      <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"-->
+<!--              routerLink="/animals/edit/{{animals.id}}">Edit-->
+<!--      </button>-->
+      <button *ngIf="authService.isLoggedIn() && authService.role.includes('ROLE_ADMIN')"
+              (click)="deleteAnimal(animals.id)">
+        Delete
+      </button>
     </tr>
   </tbody>
 </table>
@@ -24,5 +32,6 @@
 <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"
         routerLink="/animals/add">Create new animal
 </button>
+
 
 
