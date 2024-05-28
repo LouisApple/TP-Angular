@@ -14,7 +14,7 @@
   <tbody>
     <tr *ngFor="let animals of animals">
       <td>{{animals.id}}</td>
-      <td>{{animals.name}}</td>
+      <td><a [routerLink]="['/animals/details', animals.id]">{{ animals.name }}</a></td>
       <td>{{animals.color}}</td>
       <td>{{animals.sex}}</td>
       <td>{{animals.species?.commonName + ', ' + animals.species?.latinName}}</td>

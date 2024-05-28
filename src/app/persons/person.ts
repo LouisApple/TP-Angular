@@ -1,7 +1,7 @@
 import {Animals} from "../animals/animals";
 
 export class Person {
-  id: number;
+  id: number|null;
   firstName: string;
   lastName: string;
   age: number;

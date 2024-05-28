@@ -1,0 +1,13 @@
+<div *ngIf="animals">
+  <h2>{{animals.name}}</h2>
+  <p>ID: {{animals.id}}</p>
+  <p>Name: {{animals.name}}</p>
+  <p>Color: {{animals.color}}</p>
+  <p>Sex: {{animals.sex}}</p>
+  <p>Espece: {{animals.species?.commonName}}</p>
+
+
+  <button routerLink="/species">Back to list</button>
+  <button *ngIf="authService.isLoggedIn() && authService.role.includes('ROLE_ADMIN')" routerLink="/animals/edit/{{animals.id}}">Edit</button>
+  <button *ngIf="authService.isLoggedIn() && authService.role.includes('ROLE_ADMIN')" (click)="deleteAnimals(animals.id)">Delete</button>
+</div>
