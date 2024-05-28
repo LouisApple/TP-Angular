@@ -13,6 +13,11 @@ export function apiKeyInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn
     return next(req); // Don't add header if token is missing or URL starts with authUrl
   }
 
+  if (!token && !req.url.startsWith(authUrl)) {
+    console.warn('API request attempted without authorization token');
+    return throwError(() => new Error('Missing authorization token for non-auth requests'));
+  }
+
   const reqWithHeader = req.clone({
     headers: req.headers.set('Authorization', `Bearer ${token}`),
   });
