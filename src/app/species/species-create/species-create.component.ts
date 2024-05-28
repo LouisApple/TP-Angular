@@ -15,7 +15,11 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './species-create.component.scss'
 })
 export class SpeciesCreateComponent implements OnInit {
-  species: Species = new Species();
+  species: Partial<Species> = {
+    commonName: '',
+    latinName: '',
+
+  }
 
   constructor(
     private router: Router,

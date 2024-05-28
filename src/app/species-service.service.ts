@@ -20,7 +20,7 @@ export class SpeciesService {
     return this.http.get<Species>(`${this.apiUrl}/${id}`);
   }
 
-  createSpecies(species: Species): Observable<Species> {
+  createSpecies(species: Partial<Species>): Observable<Species> {
     return this.http.post<Species>(this.apiUrl, species);
   }
 

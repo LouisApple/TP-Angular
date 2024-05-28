@@ -5,6 +5,7 @@
     <th>Common Name</th>
     <th>Latin Name</th>
     <th>Actions</th>
+    <th><a *ngIf="authService.isLoggedIn()" routerLink="/species/create">Create Species</a></th>
   </tr>
   </thead>
   <tbody>
@@ -16,7 +17,8 @@
       <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"
               routerLink="/species/edit/{{species.id}}">Edit
       </button>
-      <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')" (click)="deleteSpecies(species.id)">
+      <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"
+              (click)="deleteSpecies(species.id)">
         Delete
       </button>
     </td>

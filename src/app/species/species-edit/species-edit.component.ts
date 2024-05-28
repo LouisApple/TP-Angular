@@ -37,7 +37,7 @@ export class SpeciesEditComponent implements OnInit {
 
   updateSpecies(): void {
     if (this.species) {
-      this.speciesService.updateSpecies(this.species).subscribe(() => this.router.navigate(['/species', this.species?.id]));
+      this.speciesService.updateSpecies(this.species).subscribe(() => this.router.navigate(['/species']));
     }
   }
 }
