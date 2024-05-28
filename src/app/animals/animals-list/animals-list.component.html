@@ -8,6 +8,7 @@
       <th>species(Common name, Latin name)</th>
       <th>persons</th>
       <th>Actions</th>
+      <th><input [(ngModel)]="filter" (input)="applyFilter($event.target)" placeholder="Filter animals">
     </tr>
   </thead>
   <tbody>

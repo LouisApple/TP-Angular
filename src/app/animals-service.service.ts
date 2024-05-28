@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Animals} from "./animals/animals"
@@ -12,8 +12,12 @@ export class AnimalsService {
   constructor(private http: HttpClient) {
   }
 
-  getAnimals(): Observable<Animals[]> {
-    return this.http.get<Animals[]>(this.apiUrl);
+  getAnimals(filter?: string): Observable<Animals[]> {
+    let params = new HttpParams();
+    if (filter) {
+      params = params.append('contains', filter);
+    }
+    return this.http.get<Animals[]>(this.apiUrl, {params});
   }
 
   getAnimalsById(id: number): Observable<Animals> {
