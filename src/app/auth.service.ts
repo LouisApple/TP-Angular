@@ -15,6 +15,10 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient) {
   }
 
+  get role(): string {
+    return localStorage.getItem('role') || '';
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
