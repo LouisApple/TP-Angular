@@ -6,6 +6,7 @@ import {SpeciesListComponent} from "./species/species-list/species-list.componen
 import {SpeciesDetailsComponent} from "./species/species-details/species-details.component";
 import {SpeciesEditComponent} from "./species/species-edit/species-edit.component";
 import {SpeciesCreateComponent} from "./species/species-create/species-create.component";
+import {AnimalListComponent} from "./animals/animals-list/animals-list.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -14,4 +15,6 @@ export const routes: Routes = [
   {path: 'species/details/:id', component: SpeciesDetailsComponent, canActivate: [AuthGuard]},
   {path: 'species/edit/:id', component: SpeciesEditComponent, canActivate: [AuthGuard]},
   {path: 'species/create', component: SpeciesCreateComponent, canActivate: [AuthGuard]},
+  {path: 'animals', component: AnimalListComponent, canActivate: [AuthGuard]},
+
 ];

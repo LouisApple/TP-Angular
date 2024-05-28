@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>name</th>
+      <th>color</th>
+      <th>sex</th>
+      <th>species(Common name, Latin name)</th>
+      <th>persons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let animals of animals">
+      <td>{{animals.id}}</td>
+      <td>{{animals.name}}</td>
+      <td>{{animals.color}}</td>
+      <td>{{animals.sex}}</td>
+      <td>{{animals.species?.commonName + ', ' + animals.species?.latinName}}</td>
+      <td>{{animals.persons}}</td>
+    </tr>
+  </tbody>
+</table>
+
+

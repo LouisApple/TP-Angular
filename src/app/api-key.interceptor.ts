@@ -14,7 +14,7 @@ export function apiKeyInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn
   }
 
   if (!token && !req.url.startsWith(authUrl)) {
-    console.warn('API request attempted without authorization token');
+    console.log('API request attempted without authorization token');
     return throwError(() => new Error('Missing authorization token for non-auth requests'));
   }
 
