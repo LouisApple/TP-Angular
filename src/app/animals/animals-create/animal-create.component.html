@@ -1,15 +1,18 @@
 <form (ngSubmit)="createAnimal()">
   <label>
     Name:
-    <input [(ngModel)]="animals.name" name="commonName">
+    <input [(ngModel)]="animals.name" name="name">
   </label>
   <label>
     Color:
-    <input [(ngModel)]="animals.color" name="latinName">
+    <input [(ngModel)]="animals.color" name="color">
   </label>
   <label>
     Sex:
-    <input [(ngModel)]="animals.sex" name="latinName">
+    <select [(ngModel)]="animals.sex" name="sex">
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
   </label>
   <label>
     Species:
@@ -21,7 +24,7 @@
   </label>
   <label>
     Persons:
-    <input [(ngModel)]="animals.persons" name="latinName">
+    <input [(ngModel)]="animals.persons" name="persons">
   </label>
   <button type="submit">Create</button>
 </form>

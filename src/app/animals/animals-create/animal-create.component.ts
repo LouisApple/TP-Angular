@@ -27,7 +27,6 @@ export class AnimalCreateComponent implements OnInit {
     private router: Router,
     private animalsService: AnimalsService,
     private speciesService: SpeciesService,
-    private http: HttpClient
   ) {
   }
 
@@ -35,13 +34,13 @@ export class AnimalCreateComponent implements OnInit {
     this.speciesService.getSpecies()
       .subscribe(countries => {
         this.species = countries as Species[];
-        console.log(this.species)
       })
   }
 
 
   async createAnimal(): Promise<void> {
     if (this.animals.species != null) {
+      this.animals.id = null;
       let nbEspece = this.animals.species;
       this.animals.species = this.species[nbEspece as unknown as number - 1];
     }

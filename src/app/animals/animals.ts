@@ -2,7 +2,7 @@ import {Species} from "../species/species";
 import {Person} from "../persons/person";
 
 export class Animals {
-  id: number;
+  id: number|null;
   name : string;
   color : string;
   sex: string;
@@ -10,7 +10,7 @@ export class Animals {
   persons  : Person|null;
 
   constructor() {
-    this.id = 0;
+    this.id = null;
     this.name = '';
     this.color = '';
     this.sex = '';
