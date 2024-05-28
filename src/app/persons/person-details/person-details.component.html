@@ -1,0 +1,8 @@
+<div *ngIf="person">
+  <h2>{{ person.firstName }} {{ person.lastName }}</h2>
+  <p>ID: {{ person.id }}</p>
+  <p>First Name: {{ person.firstName }}</p>
+  <p>Last Name: {{ person.lastName }}</p>
+  <p>Age: {{ person.age }}</p>
+  <button routerLink="/person">Back to list</button>
+</div>

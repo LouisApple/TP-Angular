@@ -1,0 +1,21 @@
+<form (ngSubmit)="createPerson()" #form="ngForm">
+  <label>
+    First Name:
+    <input [(ngModel)]="person.firstName" name="firstName" required minlength="2" #firstName="ngModel">
+    <div *ngIf="firstName.errors?.['required']">First Name is required.</div>
+    <div *ngIf="firstName.errors?.['minlength']">First Name must be at least 2 characters long.</div>
+  </label>
+  <label>
+    Last Name:
+    <input [(ngModel)]="person.lastName" name="lastName" required minlength="2" #lastName="ngModel">
+    <div *ngIf="lastName.errors?.['required']">Last Name is required.</div>
+    <div *ngIf="lastName.errors?.['minlength']">Last Name must be at least 2 characters long.</div>
+  </label>
+  <label>
+    Age:
+    <input [(ngModel)]="person.age" name="age" required #age="ngModel">
+    <div *ngIf="age.errors?.['required']">Age is required.</div>
+  </label>
+  <button type="submit" [disabled]="!form.form.valid">Create</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>

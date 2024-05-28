@@ -2,6 +2,7 @@
   <a routerLink="/home">Home</a>
   <a *ngIf="authService.isLoggedIn()" routerLink="/species">Species List</a>
   <a *ngIf="authService.isLoggedIn()" routerLink="/animals">Animals List</a>
+  <a *ngIf="authService.isLoggedIn()" routerLink="/person">Persons List</a>
   <a *ngIf="!authService.isLoggedIn()" routerLink="/login">Login</a>
   <button *ngIf="authService.isLoggedIn()" (click)="logout()">Logout</button>
 </nav>
