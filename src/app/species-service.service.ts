@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {Species} from "./species/species";
@@ -12,8 +12,12 @@ export class SpeciesService {
 
   constructor(private http: HttpClient) { }
 
-  getSpecies(): Observable<Species[]> {
-    return this.http.get<Species[]>(this.apiUrl);
+  getSpecies(filter?: string): Observable<Species[]> {
+    let params = new HttpParams();
+    if (filter) {
+      params = params.append('contains', filter);
+    }
+    return this.http.get<Species[]>(this.apiUrl, { params });
   }
 
   getSpeciesById(id: number): Observable<Species> {

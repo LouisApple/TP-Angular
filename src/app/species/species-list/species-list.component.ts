@@ -5,6 +5,7 @@ import {SpeciesService} from "../../species-service.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {AuthService} from "../../auth.service";
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
@@ -13,13 +14,15 @@ import {AuthService} from "../../auth.service";
   imports: [
     NgForOf,
     NgIf,
-    RouterLink
+    RouterLink,
+    FormsModule
   ],
   templateUrl: './species-list.component.html',
   styleUrl: './species-list.component.scss'
 })
 export class SpeciesListComponent implements OnInit {
   species: Species[] = [];
+  filter: string = '';
 
   constructor(private speciesService: SpeciesService, protected authService: AuthService) {
   }
@@ -29,7 +32,12 @@ export class SpeciesListComponent implements OnInit {
   }
 
   getSpecies(): void {
-    this.speciesService.getSpecies().subscribe(species => this.species = species);
+    this.speciesService.getSpecies(this.filter).subscribe(species => this.species = species);
+  }
+
+  applyFilter(eventarget: EventTarget | null): void {
+    this.filter = (<HTMLInputElement>eventarget).value;
+    this.getSpecies();
   }
 
   deleteSpecies(id: number): void {
