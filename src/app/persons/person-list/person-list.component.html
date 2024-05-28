@@ -14,12 +14,15 @@
   <tr *ngFor="let person of persons">
     <td>{{ person.id }}</td>
     <td>{{ person.firstName }}</td>
-    <td>{{ person.lastName }}</td>
+    <td><a [routerLink]="['/person/details', person.id]">{{ person.lastName }}</a></td>
     <td>{{ person.age }}</td>
     <td>
-      <button routerLink="/person/details/{{person.id}}">Details</button>
-      <button routerLink="/person/edit/{{person.id}}">Edit</button>
-      <button (click)="person.id !== null && deletePerson(person.id)">Delete</button>
+      <button *ngIf="authService.isLoggedIn() && authService.role.includes('ROLE_ADMIN')"
+              routerLink="/person/edit/{{person.id}}">Edit
+      </button>
+      <button *ngIf="authService.isLoggedIn() && authService.role.includes('ROLE_ADMIN')"
+              (click)="person.id !== null && deletePerson(person.id)">Delete
+      </button>
     </td>
   </tr>
   </tbody>
