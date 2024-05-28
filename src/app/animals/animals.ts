@@ -1,4 +1,5 @@
 import {Species} from "../species/species";
+import {Person} from "../persons/person";
 
 export class Animals {
   id: number;
@@ -6,7 +7,7 @@ export class Animals {
   color : string;
   sex: string;
   species  : Species|null;
-  persons  : string;
+  persons  : Person|null;
 
   constructor() {
     this.id = 0;
@@ -14,6 +15,6 @@ export class Animals {
     this.color = '';
     this.sex = '';
     this.species = null;
-    this.persons = '';
+    this.persons = null;
   }
 }

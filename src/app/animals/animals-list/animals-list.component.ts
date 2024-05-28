@@ -2,21 +2,25 @@ import {Component, OnInit} from '@angular/core';
 
 import {Animals} from '../animals';
 import {AnimalsService} from "../../animals-service.service";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-species-list',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    RouterLink,
+    NgIf
   ],
-  templateUrl: './species-list.component.html',
+  templateUrl: './animals-list.component.html',
   styleUrl: './species-list.component.scss'
 })
 export class AnimalListComponent implements OnInit {
   animals: Animals[] = [];
 
-  constructor(private animalsService: AnimalsService) {
+  constructor(private animalsService: AnimalsService, protected authService: AuthService) {
   }
 
   ngOnInit(): void {

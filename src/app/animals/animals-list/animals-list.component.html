@@ -21,4 +21,8 @@
   </tbody>
 </table>
 
+<button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"
+        routerLink="/animals/add">Create new animal
+</button>
+
 
