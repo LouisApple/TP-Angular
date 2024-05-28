@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Common Name</th>
+      <th>Latin Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let species of species">
+      <td>{{species.id}}</td>
+      <td>{{species.commonName}}</td>
+      <td>{{species.latinName}}</td>
+    </tr>
+  </tbody>
+</table>
+
+

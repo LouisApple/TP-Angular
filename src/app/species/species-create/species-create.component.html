@@ -1,0 +1,11 @@
+<form (ngSubmit)="createSpecies()">
+  <label>
+    Common Name:
+    <input [(ngModel)]="species.commonName" name="commonName">
+  </label>
+  <label>
+    Latin Name:
+    <input [(ngModel)]="species.latinName" name="latinName">
+  </label>
+  <button type="submit">Create</button>
+</form>
