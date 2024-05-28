@@ -25,6 +25,9 @@
               (click)="deleteAnimal(animals.id)">
         Delete
       </button>
+      <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"
+              routerLink="/animals/edit/{{animals.id}}">Edit
+      </button>
     </tr>
   </tbody>
 </table>

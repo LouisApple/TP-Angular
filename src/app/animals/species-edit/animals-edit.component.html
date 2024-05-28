@@ -1,0 +1,34 @@
+<form *ngIf="animals" (ngSubmit)="saveAnimal()" #form="ngForm">
+  <label>
+    Name:
+    <input [(ngModel)]="animals.name" name="name" required minlength="2" #commonName="ngModel">
+    <div *ngIf="commonName.errors?.['required']">Name is required.</div>
+    <div *ngIf="commonName.errors?.['minlength']">Name must be at least 2 characters long.</div>
+  </label>
+  <label>
+    Color:
+    <input [(ngModel)]="animals.color" name="color" required minlength="2" #latinName="ngModel">
+    <div *ngIf="latinName.errors?.['required']">Latin Name is required.</div>
+    <div *ngIf="latinName.errors?.['minlength']">Latin Name must be at least 2 characters long.</div>
+  </label>
+  <label>
+    Sex:
+    <select [(ngModel)]="animals.sex" name="sex" required #sex="ngModel">
+      <option value="" disabled>Select sex</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
+    <div *ngIf="sex.errors?.['required']">Sex is required.</div>
+  </label>
+  <label>
+    Species:
+    <select [(ngModel)]="animals.species" name="species">
+      <option *ngFor="let specie of species" [value]="specie.id">
+        {{ specie.commonName }}
+      </option>
+    </select>
+  </label>
+
+  <button type="submit" [disabled]="!form.form.valid">Save</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>
