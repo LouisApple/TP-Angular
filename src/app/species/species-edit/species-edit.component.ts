@@ -1,17 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-
 import {Species} from '../species';
 import {SpeciesService} from "../../species-service.service";
 import {NgIf} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import {FormControl, Validators, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-species-edit',
   standalone: true,
   imports: [
     NgIf,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './species-edit.component.html',
   styleUrl: './species-edit.component.scss'
@@ -22,7 +23,8 @@ export class SpeciesEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private speciesService: SpeciesService
+    private speciesService: SpeciesService,
+    protected authService: AuthService
   ) {
   }
 
@@ -35,9 +37,13 @@ export class SpeciesEditComponent implements OnInit {
     this.speciesService.getSpeciesById(id).subscribe(species => this.species = species);
   }
 
-  updateSpecies(): void {
+  saveSpecies(): void {
     if (this.species) {
-      this.speciesService.updateSpecies(this.species).subscribe(() => this.router.navigate(['/species']));
+      this.speciesService.updateSpecies(this.species).subscribe(() => this.router.navigate(['/species/details', this.species?.id]));
     }
+  }
+
+  cancel(): void {
+    this.router.navigate(['/species/details', this.species?.id]);
   }
 }

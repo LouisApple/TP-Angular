@@ -13,7 +13,7 @@
   <tbody>
   <tr *ngFor="let species of species">
     <td>{{ species.id }}</td>
-    <td>{{ species.commonName }}</td>
+    <td><a [routerLink]="['/species/details', species.id]">{{ species.commonName }}</a></td>
     <td>{{ species.latinName }}</td>
     <td>
       <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"

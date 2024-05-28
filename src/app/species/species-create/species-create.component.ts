@@ -4,12 +4,14 @@ import {Router} from '@angular/router';
 import {Species} from '../species';
 import {SpeciesService} from "../../species-service.service";
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-species-create',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './species-create.component.html',
   styleUrl: './species-create.component.scss'
@@ -18,7 +20,6 @@ export class SpeciesCreateComponent implements OnInit {
   species: Partial<Species> = {
     commonName: '',
     latinName: '',
-
   }
 
   constructor(
@@ -31,6 +32,10 @@ export class SpeciesCreateComponent implements OnInit {
   }
 
   createSpecies(): void {
-    this.speciesService.createSpecies(this.species).subscribe(() => this.router.navigate(['/species']));
+    this.speciesService.createSpecies(this.species).subscribe((newSpecies) => this.router.navigate(['/species/details', newSpecies.id]));
+  }
+
+  cancel(): void {
+    this.router.navigate(['/species']);
   }
 }

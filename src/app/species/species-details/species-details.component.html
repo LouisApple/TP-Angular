@@ -1,4 +1,9 @@
 <div *ngIf="species">
   <h2>{{species.commonName}}</h2>
+  <p>ID: {{species.id}}</p>
+  <p>Common Name: {{species.commonName}}</p>
   <p>Latin Name: {{species.latinName}}</p>
+  <button routerLink="/species">Back to list</button>
+  <button *ngIf="authService.isLoggedIn() && authService.role.includes('ROLE_ADMIN')" routerLink="/species/edit/{{species.id}}">Edit</button>
+  <button *ngIf="authService.isLoggedIn() && authService.role.includes('ROLE_ADMIN')" (click)="deleteSpecies(species.id)">Delete</button>
 </div>
