@@ -1,33 +1,25 @@
-import {
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpEvent,
-  HttpResponse,
-  HttpInterceptorFn, HttpHeaderResponse, HttpSentEvent, HttpProgressEvent, HttpUserEvent
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpEvent, HttpEventType, HttpHandlerFn, HttpRequest } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { tap } from "rxjs/operators";
 
-export const apiKeyInterceptor: (req: HttpRequest<any>, next: HttpHandler) => Observable<HttpSentEvent | HttpHeaderResponse | HttpResponse<any> | HttpProgressEvent | HttpUserEvent<any>> = (req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpResponse<any> | HttpProgressEvent | HttpUserEvent<any>> => {
+export function apiKeyInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+
   const token = localStorage.getItem('token');
 
   if (!token) {
-    console.warn('API request attempted without authorization token');
+    console.log('API request attempted without authorization token');
     return throwError(() => new Error('Missing authorization token'));
   }
 
-  // Clone the request and add the authorization header
-  const reqWithKey = req.clone({
-    setHeaders: { Authorization: `Bearer ' + ${token}` }
+  const reqWithHeader = req.clone({
+    headers: req.headers.set('Authorization', `Bearer ${token}`),
   });
 
-  return next.handle(reqWithKey).pipe(
-    catchError(error => {
-      // Centralized error handling for API responses
-      console.error('API request error:', error);
-      // Handle specific errors or generic error messages as needed
-      return throwError(error);
+  return next(reqWithHeader).pipe(
+    tap(event => {
+      if (event.type === HttpEventType.Response) {
+        console.log(req.url, 'returned a response with status', event.status);
+      }
     })
   );
-};
+}
