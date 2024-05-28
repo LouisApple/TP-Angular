@@ -13,10 +13,10 @@
     <td>{{ species.commonName }}</td>
     <td>{{ species.latinName }}</td>
     <td>
-      <button *ngIf="authService.isLoggedIn() && authService.role === 'ROLE_ADMIN'"
+      <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')"
               routerLink="/species/edit/{{species.id}}">Edit
       </button>
-      <button *ngIf="authService.isLoggedIn() && authService.role === 'ROLE_ADMIN'" (click)="deleteSpecies(species.id)">
+      <button *ngIf="authService.isLoggedIn() && authService.role .includes('ROLE_ADMIN')" (click)="deleteSpecies(species.id)">
         Delete
       </button>
     </td>
